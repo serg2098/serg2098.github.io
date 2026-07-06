@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="PuzzleBlast - the ultimate block puzzle challenge. Drag and drop colorful blocks to clear lines and score big, or take on the IQ Blast brain teasers.">
+    <title>PuzzleBlast</title>
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#F2502E">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PuzzleBlast">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PuzzleBlast">
+    <meta property="og:description" content="The ultimate block puzzle challenge — clear lines to score big, or solve the IQ Blast brain teasers.">
+    <meta name="twitter:card" content="summary">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="stylesheet" href="app.css?v=18">
+</head>
+<body>
+    <div id="main-menu" class="screen active flex w-full min-h-screen flex-col items-stretch justify-start gap-2 overflow-y-auto box-border px-[var(--page-pad)] pt-[22px] pb-12" style="display: flex;">
+        <header class="topbar">
+          <div class="topbar-inner">
+            <div class="brand flex items-center gap-3" role="button" tabindex="0" aria-label="PuzzleBlast home">
+                <svg class="h-[42px] w-[42px] shrink-0" viewBox="0 0 100 100" aria-label="PuzzleBlast mascot" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="mascot-gradient-menu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7E54"/><stop offset="1" stop-color="#F2502E"/></linearGradient></defs>
+                    <rect x="26" y="82" width="16" height="13" rx="6" fill="#F2502E"/>
+                    <rect x="58" y="82" width="16" height="13" rx="6" fill="#F2502E"/>
+                    <rect x="14" y="16" width="72" height="72" rx="22" fill="url(#mascot-gradient-menu)"/>
+                    <rect x="22" y="22" width="56" height="20" rx="12" fill="#fff" opacity="0.22"/>
+                    <circle cx="38" cy="50" r="9.5" fill="#fff"/><circle cx="62" cy="50" r="9.5" fill="#fff"/>
+                    <circle cx="40" cy="52" r="4.6" fill="#3A2018"/><circle cx="64" cy="52" r="4.6" fill="#3A2018"/>
+                    <circle cx="41.6" cy="50.2" r="1.5" fill="#fff"/><circle cx="65.6" cy="50.2" r="1.5" fill="#fff"/>
+                    <circle cx="26" cy="62" r="5" fill="#FF9DB0" opacity="0.85"/><circle cx="74" cy="62" r="5" fill="#FF9DB0" opacity="0.85"/>
+                    <path d="M40 64 Q50 74 60 64" stroke="#3A2018" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div class="brand-name text-2xl font-extrabold tracking-[-0.4px] text-[var(--m-ink)]">Puzzle<b class="font-extrabold text-[var(--m-accent)]">Blast</b></div>
+            </div>
+            <nav class="hidden items-center gap-[34px] min-[881px]:flex">
+                <div class="navlink is-active">Play</div>
+                <div class="navlink">Puzzles</div>
+                <div class="navlink">Leaderboard</div>
+                <div class="navlink">About</div>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="js-play inline-flex cursor-pointer items-center gap-2.5 rounded-[14px] bg-[var(--m-accent)] px-[26px] py-[13px] text-[17px] font-bold text-white shadow-[0_12px_24px_-12px_rgba(255,106,69,0.9)] transition hover:bg-[var(--m-accent-2)] active:translate-y-px max-[520px]:hidden">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg>
+                    <span>Play now</span>
+                </button>
+                <div class="avatar">AR</div>
+            </div>
+          </div>
+        </header>
+
+        <div class="mx-auto mt-2 grid w-full max-w-[1180px] flex-1 grid-cols-2 content-center items-center gap-10 max-[880px]:mt-[18px] max-[880px]:grid-cols-1 max-[880px]:gap-7">
+            <div class="max-w-[564px]">
+                <div class="mb-4 inline-flex items-center gap-2.5 text-sm font-extrabold uppercase tracking-[0.56px] text-[var(--m-accent)]">
+                    <span class="h-0.5 w-7 rounded bg-[var(--m-accent)]"></span><span>The daily block puzzle</span>
+                </div>
+                <h1 class="mb-[18px] text-[clamp(40px,6vw,64px)] font-extrabold leading-[1.02] tracking-[-1.5px] text-[var(--m-ink)] max-[520px]:text-[38px]">A clean little<br>grid to <em class="not-italic text-[var(--m-accent)]">blast.</em></h1>
+                <p class="mb-7 max-w-[440px] text-xl font-semibold leading-relaxed text-[var(--m-ink-soft)]">Place blocks, complete rows and columns, watch them burst. One new hand-crafted puzzle every day — no clutter, just flow.</p>
+                <div class="mb-7 flex flex-wrap items-center gap-4">
+                    <button id="play-button" class="flex cursor-pointer items-center gap-2.5 rounded-2xl bg-[var(--m-ink)] px-9 py-[18px] text-xl font-bold text-white shadow-[0_16px_30px_-16px_rgba(33,49,79,0.8)] transition hover:-translate-y-px hover:brightness-110 max-[520px]:flex-1 max-[520px]:justify-center">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg>
+                        <span class="play-label">Start playing</span>
+                    </button>
+                    <button class="js-play flex cursor-pointer items-center gap-2.5 rounded-2xl border-2 border-[var(--m-card-line)] bg-transparent px-[30px] py-[17px] text-lg font-bold text-[var(--m-ink)] transition hover:border-[#b9c9e2] hover:bg-white max-[520px]:flex-1 max-[520px]:justify-center">
+                        <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2" fill="currentColor"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" fill="currentColor" opacity="0.55"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" fill="currentColor" opacity="0.55"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" fill="currentColor"/></svg>
+                        <span>Today's puzzle</span>
+                    </button>
+                    <button id="iq-blast-button" class="flex cursor-pointer items-center gap-2.5 rounded-2xl border-2 border-[var(--m-card-line)] bg-transparent px-[30px] py-[17px] text-lg font-bold text-[var(--m-ink)] transition hover:border-[#b9c9e2] hover:bg-white max-[520px]:flex-1 max-[520px]:justify-center">
+                        <span aria-hidden="true">🧠</span>
+                        <span>IQ Blast</span>
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-2.5">
+                    <div class="inline-flex items-center gap-[9px] rounded-xl border border-[var(--m-card-line)] bg-white px-[15px] py-[11px] text-[15px] font-extrabold text-[var(--m-ink-soft)]"><span class="h-3.5 w-3.5 rounded-[5px] bg-[var(--c-o)]"></span><span>Easy to learn</span></div>
+                    <div class="inline-flex items-center gap-[9px] rounded-xl border border-[var(--m-card-line)] bg-white px-[15px] py-[11px] text-[15px] font-extrabold text-[var(--m-ink-soft)]"><span class="h-3.5 w-3.5 rounded-[5px] bg-[var(--c-g)]"></span><span>Daily streaks</span></div>
+                    <div class="inline-flex items-center gap-[9px] rounded-xl border border-[var(--m-card-line)] bg-white px-[15px] py-[11px] text-[15px] font-extrabold text-[var(--m-ink-soft)]"><span class="h-3.5 w-3.5 rounded-[5px] bg-[var(--c-b)]"></span><span>No ads mid-game</span></div>
+                </div>
+            </div>
+            <div class="flex items-center justify-center max-[880px]:order-first">
+                <div class="w-full max-w-[400px] rounded-[28px] border border-[var(--m-card-line)] bg-white p-[26px] shadow-[0_50px_80px_-40px_rgba(40,60,100,0.45)] max-[880px]:max-w-[340px]">
+                    <div class="mb-[18px] flex items-center justify-between">
+                        <div class="font-extrabold text-[var(--m-ink)]">Daily Puzzle · #482</div>
+                        <div class="rounded-full bg-[#fff1ea] px-3 py-[5px] text-sm font-extrabold text-[var(--m-accent)]">1,240 pts</div>
+                    </div>
+                    <div class="board">
+                        <div class="cell"></div><div class="cell"></div><div class="cell filled c-o"></div><div class="cell filled c-o"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+                        <div class="cell"></div><div class="cell filled c-r"></div><div class="cell filled c-o"></div><div class="cell filled c-o"></div><div class="cell"></div><div class="cell filled c-y"></div><div class="cell filled c-y"></div><div class="cell"></div>
+                        <div class="cell"></div><div class="cell filled c-r"></div><div class="cell filled c-r"></div><div class="cell"></div><div class="cell filled c-b"></div><div class="cell filled c-y"></div><div class="cell filled c-y"></div><div class="cell"></div>
+                        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell filled c-b"></div><div class="cell filled c-b"></div><div class="cell filled c-g"></div><div class="cell"></div><div class="cell"></div>
+                        <div class="cell filled c-p"></div><div class="cell"></div><div class="cell"></div><div class="cell filled c-b"></div><div class="cell filled c-g"></div><div class="cell filled c-g"></div><div class="cell"></div><div class="cell"></div>
+                        <div class="cell filled c-p"></div><div class="cell filled c-p"></div><div class="cell"></div><div class="cell filled c-k"></div><div class="cell filled c-k"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+                        <div class="cell"></div><div class="cell filled c-p"></div><div class="cell filled c-p"></div><div class="cell filled c-k"></div><div class="cell filled c-k"></div><div class="cell"></div><div class="cell filled c-b"></div><div class="cell filled c-b"></div>
+                        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell filled c-k"></div><div class="cell filled c-k"></div><div class="cell"></div><div class="cell filled c-b"></div><div class="cell filled c-b"></div>
+                    </div>
+                    <div class="tray">
+                        <div class="piece">
+                            <div class="prow"><div class="pcell c-o"></div><div class="pcell c-o"></div></div>
+                            <div class="prow"><div class="pcell c-o"></div><div></div></div>
+                        </div>
+                        <div class="piece">
+                            <div class="prow"><div class="pcell c-g"></div><div class="pcell c-g"></div><div class="pcell c-g"></div></div>
+                        </div>
+                        <div class="piece">
+                            <div class="prow"><div></div><div class="pcell c-k"></div><div></div></div>
+                            <div class="prow"><div class="pcell c-k"></div><div class="pcell c-k"></div><div class="pcell c-k"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen flex min-h-screen w-full flex-col items-center justify-start box-border px-[var(--page-pad)] pt-[22px] pb-8" style="display: none;">
+        <header class="topbar game-topbar">
+          <div class="topbar-inner">
+            <div class="brand flex items-center gap-3" role="button" tabindex="0" aria-label="Back to main menu">
+                <svg class="h-[42px] w-[42px] shrink-0" viewBox="0 0 100 100" aria-label="PuzzleBlast mascot" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="mascot-gradient-game" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7E54"/><stop offset="1" stop-color="#F2502E"/></linearGradient></defs>
+                    <rect x="26" y="82" width="16" height="13" rx="6" fill="#F2502E"/>
+                    <rect x="58" y="82" width="16" height="13" rx="6" fill="#F2502E"/>
+                    <rect x="14" y="16" width="72" height="72" rx="22" fill="url(#mascot-gradient-game)"/>
+                    <rect x="22" y="22" width="56" height="20" rx="12" fill="#fff" opacity="0.22"/>
+                    <circle cx="38" cy="50" r="9.5" fill="#fff"/><circle cx="62" cy="50" r="9.5" fill="#fff"/>
+                    <circle cx="40" cy="52" r="4.6" fill="#3A2018"/><circle cx="64" cy="52" r="4.6" fill="#3A2018"/>
+                    <circle cx="41.6" cy="50.2" r="1.5" fill="#fff"/><circle cx="65.6" cy="50.2" r="1.5" fill="#fff"/>
+                    <circle cx="26" cy="62" r="5" fill="#FF9DB0" opacity="0.85"/><circle cx="74" cy="62" r="5" fill="#FF9DB0" opacity="0.85"/>
+                    <path d="M40 64 Q50 74 60 64" stroke="#3A2018" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div class="brand-name text-2xl font-extrabold tracking-[-0.4px] text-[var(--m-ink)]">Puzzle<b class="font-extrabold text-[var(--m-accent)]">Blast</b></div>
+            </div>
+            <nav class="hidden items-center gap-[34px] min-[881px]:flex">
+                <div class="navlink is-active">Play</div>
+                <div class="navlink">Puzzles</div>
+                <div class="navlink">Leaderboard</div>
+                <div class="navlink">About</div>
+            </nav>
+            <div class="flex items-center gap-4">
+                <div class="avatar">AR</div>
+            </div>
+          </div>
+        </header>
+
+        <div class="play-area flex w-full flex-1 flex-col items-center justify-center">
+            <div id="board-fit" class="flex origin-top flex-col items-center gap-5 will-change-transform">
+                <div class="game-header flex w-[600px] flex-col gap-1">
+                    <div class="flex min-h-[32px] w-full justify-start pl-1">
+                        <div class="best-score-container">
+                            <span>👑</span>
+                            <span id="high-score">0</span>
+                        </div>
+                    </div>
+                    <div class="flex w-full items-center justify-between">
+                        <div class="flex flex-1 items-center justify-start gap-2.5">
+                            <button id="undo-button" class="undo-button flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--m-card-line)] bg-white text-[22px] leading-none text-[var(--m-ink)] shadow-[0_6px_14px_-8px_rgba(40,60,100,0.5)] transition hover:scale-110 active:scale-95" disabled aria-label="Undo last move">↩</button>
+                            <button id="iq-rotate-button" class="iq-ctl-button" aria-label="Rotate piece (R)" title="Rotate (R)">↻</button>
+                            <button id="iq-flip-button" class="iq-ctl-button" aria-label="Flip piece (F)" title="Flip (F)">⇋</button>
+                        </div>
+                        <div class="relative flex flex-[2] justify-center">
+                            <span id="score">0</span>
+                            <span id="level-indicator"></span>
+                            <div id="floating-text-container"></div>
+                        </div>
+                        <div class="flex flex-1 justify-end">
+                            <button id="back-button" class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--m-card-line)] bg-white text-2xl leading-none shadow-[0_6px_14px_-8px_rgba(40,60,100,0.5)] transition hover:rotate-90 hover:scale-110" aria-label="Settings">⚙️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="canvas-wrapper">
+                    <canvas id="gameCanvas" width="400" height="600"></canvas>
+                    <div id="grid-overlay"></div>
+                    <div id="combo-display"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="iq-level-screen" class="screen flex min-h-screen w-full flex-col items-center justify-start box-border px-[var(--page-pad)] pt-[22px] pb-12" style="display: none;">
+        <header class="topbar game-topbar">
+          <div class="topbar-inner">
+            <div class="brand flex items-center gap-3" role="button" tabindex="0" aria-label="Back to main menu">
+                <svg class="h-[42px] w-[42px] shrink-0" viewBox="0 0 100 100" aria-label="PuzzleBlast mascot" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="mascot-gradient-iq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7E54"/><stop offset="1" stop-color="#F2502E"/></linearGradient></defs>
+                    <rect x="26" y="82" width="16" height="13" rx="6" fill="#F2502E"/>
+                    <rect x="58" y="82" width="16" height="13" rx="6" fill="#F2502E"/>
+                    <rect x="14" y="16" width="72" height="72" rx="22" fill="url(#mascot-gradient-iq)"/>
+                    <rect x="22" y="22" width="56" height="20" rx="12" fill="#fff" opacity="0.22"/>
+                    <circle cx="38" cy="50" r="9.5" fill="#fff"/><circle cx="62" cy="50" r="9.5" fill="#fff"/>
+                    <circle cx="40" cy="52" r="4.6" fill="#3A2018"/><circle cx="64" cy="52" r="4.6" fill="#3A2018"/>
+                    <circle cx="41.6" cy="50.2" r="1.5" fill="#fff"/><circle cx="65.6" cy="50.2" r="1.5" fill="#fff"/>
+                    <circle cx="26" cy="62" r="5" fill="#FF9DB0" opacity="0.85"/><circle cx="74" cy="62" r="5" fill="#FF9DB0" opacity="0.85"/>
+                    <path d="M40 64 Q50 74 60 64" stroke="#3A2018" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div class="brand-name text-2xl font-extrabold tracking-[-0.4px] text-[var(--m-ink)]">Puzzle<b class="font-extrabold text-[var(--m-accent)]">Blast</b></div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="avatar">AR</div>
+            </div>
+          </div>
+        </header>
+        <div class="iq-levels-wrap">
+            <div class="iq-levels-header">
+                <button id="iq-levels-back" class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--m-card-line)] bg-white text-2xl leading-none shadow-[0_6px_14px_-8px_rgba(40,60,100,0.5)] transition hover:scale-110" aria-label="Back to menu">←</button>
+                <h1 class="text-3xl font-extrabold text-[var(--m-ink)]">🧠 IQ Blast</h1>
+                <span class="w-11"></span>
+            </div>
+            <p class="iq-levels-sub">Fit all 7 pieces on the board. White walls sit between the holes — no piece may cross them. Tap a piece to select it, press <b>R</b> (or ↻) to rotate and <b>F</b> (or ⇋) to flip, then drag it into place. Every level has exactly one solution.</p>
+            <div id="iq-tier-list"></div>
+        </div>
+    </div>
+
+    <div id="level-complete-modal" class="modal-overlay" style="display: none;">
+        <div class="settings-card level-complete-card">
+            <div class="lc-burst" aria-hidden="true">🎉</div>
+            <h2 id="lc-title" class="text-3xl font-bold text-center text-[var(--m-ink)]">Level solved!</h2>
+            <div class="flex flex-col gap-2.5">
+                <button id="lc-next" class="settings-action">▶ Next level</button>
+                <div class="flex gap-2.5">
+                    <button id="lc-replay" class="settings-action ghost flex-1">🔄 Replay</button>
+                    <button id="lc-levels" class="settings-action ghost flex-1">📋 Levels</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal-overlay" style="display: none;">
+        <div class="settings-card">
+            <div class="flex items-center justify-between border-b border-[var(--m-card-line)] pb-2.5">
+                <h2 class="text-2xl font-bold text-[var(--m-ink)]">Settings</h2>
+                <button id="settings-close" class="cursor-pointer text-[28px] leading-none text-[var(--m-ink-mut)] transition hover:text-[var(--m-ink)]" aria-label="Close">×</button>
+            </div>
+            <div class="flex flex-col gap-2.5">
+                <div class="text-xs font-extrabold uppercase tracking-[0.6px] text-[var(--m-ink-mut)]">Audio</div>
+                <button id="toggle-sound" class="toggle-row active">
+                    <span class="t-ico">🔊</span><span class="t-label">Sound</span><span class="switch"></span>
+                </button>
+                <button id="toggle-bgm" class="toggle-row">
+                    <span class="t-ico">🎵</span><span class="t-label">Music</span><span class="switch"></span>
+                </button>
+                <button id="toggle-vibe" class="toggle-row active">
+                    <span class="t-ico">📳</span><span class="t-label">Vibration</span><span class="switch"></span>
+                </button>
+                <div class="flex items-center gap-3 py-1">
+                    <label for="volumeSlider" class="min-w-[90px] whitespace-nowrap text-[15px] font-semibold text-[var(--m-ink)]">🔉 Volume</label>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.8" class="volume-slider">
+                </div>
+            </div>
+            <div class="flex flex-col gap-2.5">
+                <div class="text-xs font-extrabold uppercase tracking-[0.6px] text-[var(--m-ink-mut)]">Game</div>
+                <button id="theme-switcher-btn" class="settings-action">🎨 Change Skin</button>
+                <div class="flex gap-2.5">
+                    <button id="settings-home" class="settings-action ghost flex-1">🏠 Home</button>
+                    <button id="settings-replay" class="settings-action ghost flex-1">🔄 Replay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="skin-modal" class="modal-overlay" style="display: none;">
+        <div class="settings-card">
+            <div class="flex items-center justify-between border-b border-[var(--m-card-line)] pb-2.5">
+                <button id="skin-back" class="cursor-pointer text-[28px] leading-none text-[var(--m-ink-mut)] transition hover:text-[var(--m-ink)]" aria-label="Back to settings">←</button>
+                <h2 class="text-2xl font-bold text-[var(--m-ink)]">Skins</h2>
+                <span class="w-7 shrink-0"></span>
+            </div>
+            <div id="skin-options" class="mt-1 flex flex-col gap-2.5"></div>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal-overlay game-over-theme" style="display: none;">
+        <div class="game-over-card flex flex-col items-center p-10 text-center">
+            <h2 class="mb-7 text-[5rem] font-bold leading-none text-[var(--m-ink)]">Game Over</h2>
+            <div class="mb-10 flex flex-col gap-6">
+                <div class="flex flex-col items-center gap-[5px]">
+                    <span class="text-2xl uppercase tracking-wide text-[var(--m-ink-soft)]">Score</span>
+                    <span id="final-score" class="text-[4.5rem] font-bold leading-none text-[var(--m-ink)]">0</span>
+                </div>
+                <div class="flex flex-col items-center gap-[5px]">
+                    <span class="text-2xl uppercase tracking-wide text-[var(--m-accent)]">Best Score</span>
+                    <span id="modal-best-score" class="text-[4.5rem] font-bold leading-none text-[var(--m-accent)]">0</span>
+                </div>
+            </div>
+            <button id="restart-button" class="play-again-btn" aria-label="Play again">
+                <span class="ml-[5px] text-5xl text-white">▶</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="js/storage.js?v=18"></script>
+    <script src="js/config.js?v=18"></script>
+    <script src="js/palette.js?v=18"></script>
+    <script src="js/state.js?v=18"></script>
+    <script src="js/audio.js?v=18"></script>
+    <script src="js/render.js?v=18"></script>
+    <script src="js/core.js?v=18"></script>
+    <script src="js/levels.js?v=18"></script>
+    <script src="js/iq.js?v=18"></script>
+    <script src="js/input.js?v=18"></script>
+</body>
+</html>
